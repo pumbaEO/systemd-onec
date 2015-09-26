@@ -1,0 +1,25 @@
+[Unit]
+Description=onecras
+After=syslog.target
+After=network.target
+After=network.target
+Requires=onecragent.service
+Wants=onecragent.service
+
+[Service]
+Type=simple
+User=usr1cv8
+Group=grp1cv8
+Restart=on-failure
+
+OOMScoreAdjust=-1000
+
+Environment="PORT=1540" "SRV1CV8_REGPORT=1541"
+
+ExecStart=/opt/1C/v8.3/x86_64/ras cluster -p ${PORT} localhost:${SRV1CV8_REGPORT}
+TimeoutSec=30
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target 
+

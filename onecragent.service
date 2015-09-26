@@ -1,0 +1,21 @@
+[Unit]
+Description=onecragent
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=usr1cv8
+Group=grp1cv8
+
+OOMScoreAdjust=-1000
+
+Environment="PORT=1540" "SRV1CV8_REGPORT=1541" "SRV1CV8_DATA=/home/usr1cv8/.1cv8/1C/1cv8" "SRV1CV8_RANGE=1560:1591" "SRV1CV8_SECLEV=0"
+
+ExecStart=/opt/1C/v8.3/x86_64/ragent -port ${SRV1CV8_PORT} -regport ${SRV1CV8_REGPORT} -d ${SRV1CV8_DATA} -range ${SRV1CV8_RANGE} -seclev ${SRV1CV8_SECLEV} -debug
+TimeoutSec=30
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target 
+
